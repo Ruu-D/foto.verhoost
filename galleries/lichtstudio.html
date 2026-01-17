@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" class="gallery-page">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,243 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #0a0a0a;
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.5);
-            --text-muted: rgba(255, 255, 255, 0.25);
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
-        }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            overflow-x: hidden;
-        }
-
-        .gallery-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 24px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9) 0%, transparent 100%);
-            pointer-events: none;
-        }
-
-        .gallery-header > * {
-            pointer-events: auto;
-        }
-
-        @media (max-width: 600px) {
-            .gallery-header {
-                padding: 20px;
-            }
-        }
-
-        .back-button {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-size: 13px;
-            font-weight: 600;
-            transition: opacity 0.3s ease;
-        }
-
-        .back-button:hover {
-            opacity: 0.7;
-        }
-
-        .back-button-icon {
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-
-        .back-button:hover .back-button-icon {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .gallery-title {
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-align: center;
-            max-width: 200px;
-        }
-
-        @media (max-width: 600px) {
-            .gallery-title {
-                font-size: 11px;
-                max-width: 140px;
-            }
-        }
-
-        .gallery-counter {
-            font-size: 12px;
-            color: var(--text-secondary);
-            letter-spacing: 1px;
-            min-width: 60px;
-            text-align: right;
-        }
-
-        .photo-scroll {
-            scroll-snap-type: y mandatory;
-        }
-
-        .photo-container {
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .photo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .photo-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .progress-bar {
-            position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 100;
-        }
-
-        @media (max-width: 600px) {
-            .progress-bar {
-                right: 16px;
-                gap: 6px;
-            }
-        }
-
-        .progress-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        @media (max-width: 600px) {
-            .progress-dot {
-                width: 6px;
-                height: 6px;
-            }
-        }
-
-        .progress-dot:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        .progress-dot.active {
-            background: var(--text-primary);
-            transform: scale(1.3);
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-muted);
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: fadeInUp 1s ease 1s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-
-        .scroll-hint-icon {
-            width: 20px;
-            height: 34px;
-            border: 1px solid var(--text-muted);
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .scroll-hint-icon::before {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 6px;
-            background: var(--text-muted);
-            border-radius: 2px;
-            animation: scrollBounce 2s infinite;
-        }
-
-        @keyframes scrollBounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-            50% { transform: translateX(-50%) translateY(5px); opacity: 0.3; }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 
@@ -253,70 +17,20 @@
             <span class="back-button-text">Terug</span>
         </a>
         <h1 class="gallery-title">Lichtstudio groente of fruit</h1>
-        <span class="gallery-counter"><span id="current">1</span> / 5</span>
+        <span class="gallery-counter"><span id="current">1</span> / <span id="total">5</span></span>
     </header>
 
-    <nav class="progress-bar">
-        <span class="progress-dot active" data-index="0"></span>
-        <span class="progress-dot" data-index="1"></span>
-        <span class="progress-dot" data-index="2"></span>
-        <span class="progress-dot" data-index="3"></span>
-        <span class="progress-dot" data-index="4"></span>
-    </nav>
-
-    <main class="photo-scroll">
-        <div class="photo-container" data-index="0">
-            <!-- Vervang met: <img src="../images/lichtstudio/1.jpg" alt="Foto 1"> -->
-            <div class="photo-placeholder">Foto 1</div>
-            <div class="scroll-hint">
-                <span class="scroll-hint-icon"></span>
-                Scroll
-            </div>
-        </div>
-        <div class="photo-container" data-index="1">
-            <div class="photo-placeholder">Foto 2</div>
-        </div>
-        <div class="photo-container" data-index="2">
-            <div class="photo-placeholder">Foto 3</div>
-        </div>
-        <div class="photo-container" data-index="3">
-            <div class="photo-placeholder">Foto 4</div>
-        </div>
-        <div class="photo-container" data-index="4">
-            <div class="photo-placeholder">Foto 5</div>
-        </div>
-    </main>
+    <nav class="progress-bar"></nav>
+    <main class="photo-scroll"></main>
 
     <script>
-        const photos = document.querySelectorAll('.photo-container');
-        const dots = document.querySelectorAll('.progress-dot');
-        const counter = document.getElementById('current');
-        const scrollHint = document.querySelector('.scroll-hint');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = parseInt(entry.target.dataset.index);
-                    counter.textContent = index + 1;
-                    dots.forEach((dot, i) => {
-                        dot.classList.toggle('active', i === index);
-                    });
-                    if (index > 0 && scrollHint) {
-                        scrollHint.style.opacity = '0';
-                    }
-                }
-            });
-        }, { threshold: 0.5 });
-
-        photos.forEach(photo => observer.observe(photo));
-
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const index = parseInt(dot.dataset.index);
-                photos[index].scrollIntoView({ behavior: 'smooth' });
-            });
-        });
+        window.galleryConfig = {
+            folder: 'lichtstudio',
+            prefix: 'PE1_Verhoost_Daan_Internet-',
+            count: 5
+        };
     </script>
+    <script src="../js/gallery.js"></script>
 
 </body>
 </html>
