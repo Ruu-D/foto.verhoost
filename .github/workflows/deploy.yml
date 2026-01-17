@@ -21,7 +21,7 @@ jobs:
 
       - name: Debug - Check variables
         run: |
-          echo "Project name is set: ${{ vars.CLOUDFLARE_PROJECT_NAME != '' }}"
+          echo "Project name is set: ${{ secrets.CLOUDFLARE_PROJECT_NAME != '' }}"
           echo "Account ID is set: ${{ secrets.CLOUDFLARE_ACCOUNT_ID != '' }}"
           echo "API Token is set: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}"
 
@@ -30,4 +30,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }} --commit-dirty=true
+          command: pages deploy . --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }} --commit-dirty=true
