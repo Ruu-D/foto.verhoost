@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERHOOST — Theme 2: Editorial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #111111;
+            --bg-card: #181818;
+            --text-primary: #f5f5f5;
+            --text-secondary: rgba(245, 245, 245, 0.6);
+            --text-muted: rgba(245, 245, 245, 0.3);
+            --border: rgba(245, 245, 245, 0.12);
+            --accent: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ============================================
+           NAVIGATION
+        ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                padding: 20px;
+            }
+        }
+
+        .nav-logo {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .nav-tagline {
+            font-size: 12px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        /* ============================================
+           HERO SECTION
+        ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 45% 55%;
+            position: relative;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 120px 50px 80px;
+            position: relative;
+        }
+
+        @media (max-width: 900px) {
+            .hero-left {
+                padding: 120px 24px 60px;
+                order: 2;
+            }
+        }
+
+        .hero-left::before {
+            content: '';
+            position: absolute;
+            top: 120px;
+            left: 50px;
+            width: 1px;
+            height: 80px;
+            background: var(--border);
+        }
+
+        .hero-intro {
+            margin-bottom: 60px;
+        }
+
+        .hero-intro-label {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .hero-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(42px, 6vw, 72px);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .hero-bio {
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 2;
+            color: var(--text-secondary);
+            max-width: 360px;
+        }
+
+        .hero-bio em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            color: var(--text-primary);
+        }
+
+        .hero-cta-line {
+            width: 60px;
+            height: 1px;
+            background: var(--text-secondary);
+            transition: width 0.3s ease;
+        }
+
+        .hero-cta:hover .hero-cta-line {
+            width: 80px;
+        }
+
+        .hero-right {
+            position: relative;
+            background: linear-gradient(135deg, #1e1e1e 0%, #151515 100%);
+        }
+
+        @media (max-width: 900px) {
+            .hero-right {
+                height: 70vh;
+                order: 1;
+            }
+        }
+
+        .hero-image-frame {
+            position: absolute;
+            inset: 60px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero-image-frame {
+                inset: 30px;
+            }
+        }
+
+        .hero-image-placeholder {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .hero-image-number {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 120px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.03);
+            line-height: 1;
+        }
+
+        /* ============================================
+           GALLERIES SECTION
+        ============================================ */
+        .galleries-section {
+            padding: 100px 50px 140px;
+        }
+
+        @media (max-width: 700px) {
+            .galleries-section {
+                padding: 60px 24px 100px;
+            }
+        }
+
+        .galleries-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (max-width: 700px) {
+            .galleries-header {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .galleries-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .galleries-description {
+            font-size: 14px;
+            line-height: 2;
+            color: var(--text-secondary);
+            max-width: 400px;
+            align-self: end;
+        }
+
+        .galleries-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 700px) {
+            .galleries-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        .gallery-card {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .gallery-card-image {
+            aspect-ratio: 3 / 2;
+            background: var(--bg-card);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-card:hover .gallery-card-image {
+            transform: scale(0.96);
+        }
+
+        .gallery-card-image-inner {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #222 0%, #181818 100%);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-card:hover .gallery-card-image-inner {
+            transform: scale(1.1);
+        }
+
+        .gallery-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(17, 17, 17, 0.9) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-card:hover .gallery-card-overlay {
+            opacity: 1;
+        }
+
+        .gallery-card-info {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .gallery-card-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .gallery-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            transition: color 0.3s ease;
+        }
+
+        .gallery-card:hover .gallery-card-title {
+            color: var(--accent);
+        }
+
+        .gallery-card-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .gallery-card-arrow {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-card:hover .gallery-card-arrow {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        footer {
+            padding: 50px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 700px) {
+            footer {
+                padding: 30px 24px;
+            }
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 700px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        .footer-left {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        .footer-right {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        /* ============================================
+           THEME BADGE (for demo purposes)
+        ============================================ */
+        .theme-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="theme-badge">Theme 2 — Editorial</div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <span class="nav-logo">Verhoost</span>
+        <span class="nav-tagline">Photography</span>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-left">
+            <div class="hero-intro">
+                <p class="hero-intro-label">About the Artist</p>
+                <h1 class="hero-name">Verhoost</h1>
+                <p class="hero-bio">
+                    There's a quiet language in light — the way it falls,
+                    bends, and reveals. My work is an attempt to <em>translate</em>
+                    those silent conversations into something you can hold.
+                </p>
+            </div>
+            <a href="#work" class="hero-cta">
+                <span class="hero-cta-line"></span>
+                View Selected Work
+            </a>
+        </div>
+        <div class="hero-right">
+            <div class="hero-image-frame">
+                <span class="hero-image-placeholder">Portrait</span>
+                <span class="hero-image-number">V</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERIES -->
+    <section class="galleries-section" id="work">
+        <header class="galleries-header">
+            <h2 class="galleries-title">Selected Works</h2>
+            <p class="galleries-description">
+                Four collections exploring different facets of light,
+                form, and human expression. Each series is a chapter
+                in an ongoing visual dialogue.
+            </p>
+        </header>
+
+        <div class="galleries-grid">
+            <article class="gallery-card">
+                <div class="gallery-card-image">
+                    <div class="gallery-card-image-inner"></div>
+                    <div class="gallery-card-overlay"></div>
+                </div>
+                <div class="gallery-card-info">
+                    <div>
+                        <p class="gallery-card-number">№ 01</p>
+                        <h3 class="gallery-card-title">Lichtstudio groente of fruit</h3>
+                        <p class="gallery-card-meta">5 photographs</p>
+                    </div>
+                    <div class="gallery-card-arrow">→</div>
+                </div>
+            </article>
+
+            <article class="gallery-card">
+                <div class="gallery-card-image">
+                    <div class="gallery-card-image-inner"></div>
+                    <div class="gallery-card-overlay"></div>
+                </div>
+                <div class="gallery-card-info">
+                    <div>
+                        <p class="gallery-card-number">№ 02</p>
+                        <h3 class="gallery-card-title">Portret</h3>
+                        <p class="gallery-card-meta">6 photographs</p>
+                    </div>
+                    <div class="gallery-card-arrow">→</div>
+                </div>
+            </article>
+
+            <article class="gallery-card">
+                <div class="gallery-card-image">
+                    <div class="gallery-card-image-inner"></div>
+                    <div class="gallery-card-overlay"></div>
+                </div>
+                <div class="gallery-card-info">
+                    <div>
+                        <p class="gallery-card-number">№ 03</p>
+                        <h3 class="gallery-card-title">In de stijl van ... Benoit Paille</h3>
+                        <p class="gallery-card-meta">8 photographs</p>
+                    </div>
+                    <div class="gallery-card-arrow">→</div>
+                </div>
+            </article>
+
+            <article class="gallery-card">
+                <div class="gallery-card-image">
+                    <div class="gallery-card-image-inner"></div>
+                    <div class="gallery-card-overlay"></div>
+                </div>
+                <div class="gallery-card-info">
+                    <div>
+                        <p class="gallery-card-number">№ 04</p>
+                        <h3 class="gallery-card-title">Tweede gordijn</h3>
+                        <p class="gallery-card-meta">3 photographs</p>
+                    </div>
+                    <div class="gallery-card-arrow">→</div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <span class="footer-left">Verhoost</span>
+            <span class="footer-right">© 2025 — All Rights Reserved</span>
+        </div>
+    </footer>
+
+</body>
+</html>

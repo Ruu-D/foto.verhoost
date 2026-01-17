@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Concepts - Choose Your Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0f0f;
+            --bg-medium: #1a1a1a;
+            --bg-light: #242424;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-muted: rgba(255, 255, 255, 0.35);
+            --accent: rgba(255, 255, 255, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           CONCEPT SELECTOR - STICKY HEADER
+        ============================================ */
+        .concept-selector {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(to bottom, var(--bg-dark) 60%, transparent);
+            padding: 30px 40px 50px;
+        }
+
+        .selector-title {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .concept-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .concept-tab {
+            padding: 14px 28px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-secondary);
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .concept-tab:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            color: var(--text-primary);
+        }
+
+        .concept-tab.active {
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            border-color: var(--text-primary);
+        }
+
+        /* ============================================
+           CONCEPT SECTIONS
+        ============================================ */
+        .concept-section {
+            display: none;
+            padding: 140px 40px 60px;
+            min-height: 100vh;
+        }
+
+        .concept-section.active {
+            display: block;
+        }
+
+        .concept-header {
+            margin-bottom: 60px;
+            max-width: 600px;
+        }
+
+        .concept-name {
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .concept-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .interaction-model {
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--bg-medium);
+            border-radius: 8px;
+            border-left: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .interaction-model h4 {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .interaction-model p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           MOCKUP CONTAINERS
+        ============================================ */
+        .mockups-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .mockups-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mockup-container {
+            background: var(--bg-medium);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mockup-label {
+            padding: 16px 24px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mockup-frame {
+            aspect-ratio: 16 / 10;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mockup-frame.mobile {
+            aspect-ratio: 9 / 16;
+            max-width: 320px;
+            margin: 20px auto;
+        }
+
+        /* ============================================
+           CONCEPT A - MINIMAL EDGE
+        ============================================ */
+        .concept-a-home {
+            background: #121212;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+        }
+
+        .concept-a-portrait {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .concept-a-portrait::after {
+            content: 'Portrait';
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .concept-a-content {
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .concept-a-name {
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .concept-a-bio {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            max-width: 340px;
+        }
+
+        .concept-a-nav {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .concept-a-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .concept-a-dot:hover,
+        .concept-a-dot.active {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.3);
+        }
+
+        .concept-a-gallery {
+            background: #121212;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .concept-a-gallery-header {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .concept-a-gallery-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .concept-a-close {
+            font-size: 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .concept-a-photo {
+            flex: 1;
+            background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+            margin: 0 0 2px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .concept-a-scroll-hint {
+            padding: 16px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* ============================================
+           CONCEPT B - FLOATING MENU
+        ============================================ */
+        .concept-b-home {
+            background: #0f0f0f;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .concept-b-hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 50%, #1a1a1a 100%);
+            opacity: 0.6;
+        }
+
+        .concept-b-hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .concept-b-portrait-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .concept-b-name {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .concept-b-bio {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .concept-b-hamburger {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 32px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .concept-b-hamburger span {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .concept-b-hamburger:hover span {
+            background: white;
+        }
+
+        .concept-b-menu-preview {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 55%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 80px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .concept-b-menu-item {
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .concept-b-menu-item:hover {
+            color: white;
+            padding-left: 10px;
+        }
+
+        .concept-b-gallery {
+            background: #0f0f0f;
+            height: 100%;
+            position: relative;
+        }
+
+        .concept-b-gallery-title {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: white;
+            z-index: 10;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .concept-b-photo-stack {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .concept-b-photo {
+            flex: 1;
+            background: linear-gradient(180deg, #252525 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 11px;
+            position: relative;
+        }
+
+        .concept-b-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to top, rgba(15, 15, 15, 0.8), transparent);
+        }
+
+        .concept-b-progress {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .concept-b-progress-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .concept-b-progress-dot.active {
+            background: white;
+        }
+
+        /* ============================================
+           CONCEPT C - GALLERY GRID
+        ============================================ */
+        .concept-c-home {
+            background: #141414;
+            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .concept-c-header {
+            margin-bottom: 20px;
+        }
+
+        .concept-c-name {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .concept-c-tagline {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .concept-c-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .concept-c-tile {
+            background: linear-gradient(135deg, #222 0%, #1a1a1a 100%);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .concept-c-tile:hover {
+            transform: scale(1.02);
+        }
+
+        .concept-c-tile-label {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .concept-c-tile-count {
+            font-size: 10px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .concept-c-gallery {
+            background: #0f0f0f;
+            height: 100%;
+            position: relative;
+        }
+
+        .concept-c-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 18px;
+            color: white;
+        }
+
+        .concept-c-gallery-title {
+            position: absolute;
+            top: 26px;
+            left: 70px;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            z-index: 10;
+        }
+
+        .concept-c-full-photo {
+            height: 100%;
+            background: linear-gradient(180deg, #222 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .concept-c-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           MOBILE MOCKUP SPECIFIC
+        ============================================ */
+        .mobile-frame {
+            background: #0a0a0a;
+            border-radius: 24px;
+            padding: 8px;
+            border: 2px solid #2a2a2a;
+        }
+
+        .mobile-screen {
+            border-radius: 18px;
+            overflow: hidden;
+            aspect-ratio: 9 / 19;
+        }
+
+        /* ============================================
+           SECTION DIVIDER
+        ============================================ */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 80px 0;
+        }
+
+        /* ============================================
+           FEATURES LIST
+        ============================================ */
+        .features-list {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        .concepts-footer {
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Concept Selector -->
+    <header class="concept-selector">
+        <p class="selector-title">Choose your design</p>
+        <div class="concept-tabs">
+            <button class="concept-tab active" data-concept="a">A — Minimal Edge</button>
+            <button class="concept-tab" data-concept="b">B — Floating Menu</button>
+            <button class="concept-tab" data-concept="c">C — Gallery Grid</button>
+        </div>
+    </header>
+
+    <!-- ============================================
+         CONCEPT A - MINIMAL EDGE
+    ============================================ -->
+    <section class="concept-section active" id="concept-a">
+        <div class="concept-header">
+            <h1 class="concept-name">Minimal Edge</h1>
+            <p class="concept-description">
+                Pure simplicity. The focus is entirely on your work. Navigation is reduced to subtle dots
+                in the corner — present but invisible until needed. The homepage splits cleanly between
+                your portrait and a brief introduction.
+            </p>
+            <div class="interaction-model">
+                <h4>Interaction Model</h4>
+                <p>
+                    <strong>Desktop:</strong> Click dots to switch galleries. Scroll vertically through photos.<br>
+                    <strong>Mobile:</strong> Swipe up to scroll through photos. Tap corner dots or swipe horizontally
+                    at the edge to switch galleries.
+                </p>
+            </div>
+            <div class="features-list">
+                <div class="feature">
+                    <span class="feature-icon">◯</span>
+                    Dot navigation
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">↕</span>
+                    Vertical scroll
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">▢</span>
+                    Split layout hero
+                </div>
+            </div>
+        </div>
+
+        <div class="mockups-grid">
+            <!-- Homepage Mockup -->
+            <div class="mockup-container">
+                <div class="mockup-label">Homepage — Desktop</div>
+                <div class="mockup-frame">
+                    <div class="concept-a-home">
+                        <div class="concept-a-portrait"></div>
+                        <div class="concept-a-content">
+                            <h2 class="concept-a-name">Verhoost</h2>
+                            <p class="concept-a-bio">
+                                Capturing the quiet moments between light and shadow.
+                                Each frame is a meditation on what we overlook —
+                                the poetry hidden in the ordinary.
+                            </p>
+                        </div>
+                        <nav class="concept-a-nav">
+                            <span class="concept-a-dot active"></span>
+                            <span class="concept-a-dot"></span>
+                            <span class="concept-a-dot"></span>
+                            <span class="concept-a-dot"></span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Mockup -->
+            <div class="mockup-container">
+                <div class="mockup-label">Gallery — Vertical Scroll</div>
+                <div class="mockup-frame">
+                    <div class="concept-a-gallery">
+                        <header class="concept-a-gallery-header">
+                            <span class="concept-a-gallery-title">Lichtstudio groente of fruit</span>
+                            <span class="concept-a-close">×</span>
+                        </header>
+                        <div class="concept-a-photo">Photo 1 of 5</div>
+                        <div class="concept-a-scroll-hint">↓ scroll</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONCEPT B - FLOATING MENU
+    ============================================ -->
+    <section class="concept-section" id="concept-b">
+        <div class="concept-header">
+            <h1 class="concept-name">Floating Menu</h1>
+            <p class="concept-description">
+                Atmospheric and immersive. A centered hero creates a sense of presence,
+                while the floating hamburger menu slides out to reveal your galleries.
+                The mood is cinematic — your photography takes center stage.
+            </p>
+            <div class="interaction-model">
+                <h4>Interaction Model</h4>
+                <p>
+                    <strong>Desktop:</strong> Click hamburger to reveal menu. Smooth slide-out animation.
+                    Click gallery name to enter vertical scroll mode.<br>
+                    <strong>Mobile:</strong> Tap hamburger or swipe from right edge. Full-screen vertical
+                    scroll with subtle progress dots.
+                </p>
+            </div>
+            <div class="features-list">
+                <div class="feature">
+                    <span class="feature-icon">≡</span>
+                    Slide-out menu
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">●</span>
+                    Centered hero
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">◐</span>
+                    Atmospheric mood
+                </div>
+            </div>
+        </div>
+
+        <div class="mockups-grid">
+            <!-- Homepage with Menu -->
+            <div class="mockup-container">
+                <div class="mockup-label">Homepage — Menu Open</div>
+                <div class="mockup-frame">
+                    <div class="concept-b-home">
+                        <div class="concept-b-hero-bg"></div>
+                        <div class="concept-b-hero-content">
+                            <div class="concept-b-portrait-circle">Portrait</div>
+                            <h2 class="concept-b-name">VERHOOST</h2>
+                            <p class="concept-b-bio">
+                                Finding beauty in stillness. Every photograph
+                                is an invitation to pause and truly see.
+                            </p>
+                        </div>
+                        <div class="concept-b-menu-preview">
+                            <div class="concept-b-menu-item">Lichtstudio groente of fruit</div>
+                            <div class="concept-b-menu-item">Portret</div>
+                            <div class="concept-b-menu-item">In de stijl van ... Benoit Paille</div>
+                            <div class="concept-b-menu-item">Tweede gordijn</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Mockup -->
+            <div class="mockup-container">
+                <div class="mockup-label">Gallery — Full Bleed</div>
+                <div class="mockup-frame">
+                    <div class="concept-b-gallery">
+                        <span class="concept-b-gallery-title">PORTRET</span>
+                        <div class="concept-b-photo-stack">
+                            <div class="concept-b-photo">Photo fills entire viewport</div>
+                        </div>
+                        <div class="concept-b-progress">
+                            <span class="concept-b-progress-dot active"></span>
+                            <span class="concept-b-progress-dot"></span>
+                            <span class="concept-b-progress-dot"></span>
+                            <span class="concept-b-progress-dot"></span>
+                            <span class="concept-b-progress-dot"></span>
+                            <span class="concept-b-progress-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONCEPT C - GALLERY GRID
+    ============================================ -->
+    <section class="concept-section" id="concept-c">
+        <div class="concept-header">
+            <h1 class="concept-name">Gallery Grid</h1>
+            <p class="concept-description">
+                Overview first. The homepage presents all four galleries as a visual grid,
+                giving visitors an immediate sense of your range. Tap any tile to dive into
+                that gallery's vertical scroll experience.
+            </p>
+            <div class="interaction-model">
+                <h4>Interaction Model</h4>
+                <p>
+                    <strong>Desktop:</strong> Hover tiles for subtle scale effect. Click to enter gallery.
+                    Back button or ESC to return to grid.<br>
+                    <strong>Mobile:</strong> Tap tile to enter. Swipe up to scroll. Back gesture or
+                    tap corner circle to return.
+                </p>
+            </div>
+            <div class="features-list">
+                <div class="feature">
+                    <span class="feature-icon">⊞</span>
+                    Grid overview
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">→</span>
+                    Tap to dive in
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">←</span>
+                    Easy back navigation
+                </div>
+            </div>
+        </div>
+
+        <div class="mockups-grid">
+            <!-- Homepage Grid -->
+            <div class="mockup-container">
+                <div class="mockup-label">Homepage — Gallery Overview</div>
+                <div class="mockup-frame">
+                    <div class="concept-c-home">
+                        <header class="concept-c-header">
+                            <h2 class="concept-c-name">Verhoost</h2>
+                            <p class="concept-c-tagline">Photography Portfolio</p>
+                        </header>
+                        <div class="concept-c-grid">
+                            <div class="concept-c-tile">
+                                <div class="concept-c-tile-label">
+                                    Lichtstudio groente of fruit
+                                    <div class="concept-c-tile-count">5 photos</div>
+                                </div>
+                            </div>
+                            <div class="concept-c-tile">
+                                <div class="concept-c-tile-label">
+                                    Portret
+                                    <div class="concept-c-tile-count">6 photos</div>
+                                </div>
+                            </div>
+                            <div class="concept-c-tile">
+                                <div class="concept-c-tile-label">
+                                    In de stijl van ... Benoit Paille
+                                    <div class="concept-c-tile-count">8 photos</div>
+                                </div>
+                            </div>
+                            <div class="concept-c-tile">
+                                <div class="concept-c-tile-label">
+                                    Tweede gordijn
+                                    <div class="concept-c-tile-count">3 photos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Full View -->
+            <div class="mockup-container">
+                <div class="mockup-label">Gallery — Full View</div>
+                <div class="mockup-frame">
+                    <div class="concept-c-gallery">
+                        <div class="concept-c-back">←</div>
+                        <span class="concept-c-gallery-title">In de stijl van ... Benoit Paille</span>
+                        <div class="concept-c-full-photo">Full bleed photo</div>
+                        <span class="concept-c-counter">3 / 8</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="concepts-footer">
+        <p class="footer-text">Select a concept above to review • Tell me which one you prefer and I'll build it</p>
+    </footer>
+
+    <script>
+        // Tab switching
+        const tabs = document.querySelectorAll('.concept-tab');
+        const sections = document.querySelectorAll('.concept-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const concept = tab.dataset.concept;
+
+                // Update tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update sections
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(`concept-${concept}`).classList.add('active');
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Dot hover effects for Concept A
+        const dots = document.querySelectorAll('.concept-a-dot');
+        dots.forEach(dot => {
+            dot.addEventListener('mouseenter', () => {
+                dots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+            });
+        });
+
+        // Tile hover for Concept C
+        const tiles = document.querySelectorAll('.concept-c-tile');
+        tiles.forEach(tile => {
+            tile.addEventListener('mouseenter', () => {
+                tile.style.background = 'linear-gradient(135deg, #2a2a2a 0%, #222 100%)';
+            });
+            tile.addEventListener('mouseleave', () => {
+                tile.style.background = 'linear-gradient(135deg, #222 0%, #1a1a1a 100%)';
+            });
+        });
+    </script>
+
+</body>
+</html>
